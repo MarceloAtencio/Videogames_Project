@@ -100,15 +100,15 @@ def sentiment_analysis(x: int):
     dataframe = pd.read_csv("ETL/03 - Dataframe para funciones/sentiment_analysis.csv")
 
     # Filtrar el DataFrame por el año dado
-    year_df = dataframe.loc[dataframe['Año_Lanzamiento'] == x]
+    year_df = dataframe.loc[dataframe['Año_Lanzamiento'] == "x"]
 
     if year_df.empty:
         return {"error": "No hay datos para el año proporcionado"}
 
     # Obtener la cantidad de registros para cada categoría de análisis de sentimiento
-    negative_records = year_df.loc[year_df['sentiment_analysis'] == "0"]['Cant_reg'].sum()
-    neutral_records = year_df.loc[year_df['sentiment_analysis'] == "1"]['Cant_reg'].sum()
-    positive_records = year_df.loc[year_df['sentiment_analysis'] == "2"]['Cant_reg'].sum()
+    negative_records = year_df[year_df['sentiment_analysis'] == 0]['Cant_reg'].sum()
+    neutral_records = year_df[year_df['sentiment_analysis'] == 1]['Cant_reg'].sum()
+    positive_records = year_df[year_df['sentiment_analysis'] == 2]['Cant_reg'].sum()
 
     # Crear el resultado en el formato deseado
     result = {"Negative": negative_records,
