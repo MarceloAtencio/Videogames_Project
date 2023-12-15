@@ -30,7 +30,7 @@ def UserForGenre(x: str):
     dataframe = pd.read_csv("ETL/03 - Dataframe para funciones/UserForGenre.csv")
 
     # Filtrar el DataFrame por el género dado
-    genre_df = dataframe[dataframe['Genero'] == x]
+    genre_df = dataframe.loc[dataframe['Genero'] == x]
 
     if genre_df.empty:
         return {"error": "No hay datos para el género proporcionado"}
