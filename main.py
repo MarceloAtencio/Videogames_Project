@@ -72,8 +72,50 @@ def UsersRecommend(x: int):
 
     return result
 
+@app.get("/year/{x}",tags=["TOP 3 de juegos menos recomendados según el año"])
+def UsersNotRecommend(x: int):
+    # Leer el DataFrame desde el archivo CSV
+    dataframe = pd.read_csv("ETL/03 - Dataframe para funciones/UsersNotRecommend.csv")
 
+    # Filtrar el DataFrame por el año dado
+    year_df = dataframe[dataframe['Año'] == x]
 
+    if year_df.empty:
+        return {"error": "No hay datos para el año proporcionado"}
+
+    # Ordenar el DataFrame por la cantidad de recomendaciones en orden ascendente
+    sorted_df = year_df.sort_values(by='Cant_rec')
+
+    # Tomar los tres juegos menos recomendados
+    bottom3_games = sorted_df.head(3)['Nombre_juego'].tolist()
+
+    # Convertir el resultado a un formato de lista de diccionarios con los puestos correctos
+    result = [{"Puesto {}".format(i + 1): juego} for i, juego in enumerate(bottom3_games)]
+
+    return result
+
+@app.get("/year/{x}",tags=["Cantidad de comentarios positivos, neutros y negativos según el año"])
+def sentiment_analysis(x: int):
+    # Leer el DataFrame desde el archivo CSV
+    dataframe = pd.read_csv("ETL/03 - Dataframe para funciones/sentiment_analysis.csv")
+
+    # Filtrar el DataFrame por el año dado
+    year_df = dataframe.loc[dataframe['Año_Lanzamiento'] == x]
+
+    if year_df.empty:
+        return {"error": "No hay datos para el año proporcionado"}
+
+    # Obtener la cantidad de registros para cada categoría de análisis de sentimiento
+    negative_records = year_df[year_df['sentiment_analysis'] == 0]['Cant_reg'].sum()
+    neutral_records = year_df[year_df['sentiment_analysis'] == 1]['Cant_reg'].sum()
+    positive_records = year_df[year_df['sentiment_analysis'] == 2]['Cant_reg'].sum()
+
+    # Crear el resultado en el formato deseado
+    result = {"Negative": negative_records,
+              "Neutral": neutral_records,
+              "Positive": positive_records}
+
+    return result
 
 
 
