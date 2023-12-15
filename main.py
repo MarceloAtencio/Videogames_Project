@@ -48,3 +48,35 @@ def UserForGenre(x: str):
     result = {"Usuario con más horas jugadas para Género {}".format(x): max_hours_user, "Horas jugadas": hours_list}
 
     return result
+
+
+@app.get("/year/{x}",tags=["TOP 3 de juegos más recomendados según el año"])
+def UsersRecommend(x):
+    # Leer el DataFrame desde el archivo CSV
+    dataframe = pd.read_csv("ETL/03 - Dataframe para funciones/UsersRecommend.csv")
+    
+    # Filtrar el DataFrame por el año dado
+    year_df = dataframe[dataframe['Año'] == x ]
+
+    if year_df.empty:
+        return {"error": "No hay datos para el año proporcionado"}
+
+    # Ordenar el DataFrame por la cantidad de recomendaciones en orden descendente
+    sorted_df = year_df.sort_values(by='Cant_rec', ascending=False)
+
+    # Tomar los tres juegos más recomendados
+    top3_games = sorted_df.head(3)['Nombre_juego'].tolist()
+
+    # Convertir el resultado a un formato de lista de diccionarios con los puestos correctos
+    result = [{"Puesto {}".format(i + 1): juego} for i, juego in enumerate(top3_games)]
+
+    return result
+
+
+
+
+
+
+
+
+
