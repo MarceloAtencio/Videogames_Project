@@ -106,9 +106,9 @@ def sentiment_analysis(x: int):
         return {"error": "No hay datos para el año proporcionado"}
 
     # Obtener la cantidad de registros para cada categoría de análisis de sentimiento
-    negative_records = year_df[year_df['sentiment_analysis'] == 0]['Cant_reg'].sum()
-    neutral_records = year_df[year_df['sentiment_analysis'] == 1]['Cant_reg'].sum()
-    positive_records = year_df[year_df['sentiment_analysis'] == 2]['Cant_reg'].sum()
+    negative_records = year_df.loc[year_df['sentiment_analysis'] == 0]['Cant_reg'].sum()
+    neutral_records = year_df.loc[year_df['sentiment_analysis'] == 1]['Cant_reg'].sum()
+    positive_records = year_df.loc[year_df['sentiment_analysis'] == 2]['Cant_reg'].sum()
 
     # Crear el resultado en el formato deseado
     result = {"Negative": negative_records,
