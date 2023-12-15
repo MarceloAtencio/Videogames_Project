@@ -3,15 +3,23 @@ from fastapi.responses import HTMLResponse
 import pandas as pd
 import numpy as np
 
-app = FastAPI(title='Proyecto Individual ',
+app = FastAPI(title='Proyecto Individual',
             description='Autor:  Atencio Marcelo',
             version='1.0.1')
 
 
-@app.get("/genero/{x}",tags=["Género"])
-def PlayTimeGenre(x: str):
+@app.on_event('startup')
+async def startup():
+    
     # Cargar el archivo CSV en un DataFrame
     df = pd.read_csv("../03 - Dataframe para funciones/PlayTimeGenre.csv")
+
+def extract_data():
+    return df
+
+
+@app.get("/genero/{x}",tags=["Género"])
+def PlayTimeGenre(x: str):
 
     # Filtrar el DataFrame para el género específico
     df_genero = df.loc[df['Genero'] == x]
