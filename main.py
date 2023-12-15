@@ -23,3 +23,7 @@ def PlayTimeGenre(x: str):
     leyenda = f"Año de lanzamiento con más horas jugadas para Género {x}: {año_max_playtime}"
 
     return {"Respuesta" : leyenda}
+
+
+if __name__ == '__main__':
+    app.run(port=5000)
