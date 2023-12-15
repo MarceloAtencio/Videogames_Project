@@ -56,7 +56,7 @@ def UsersRecommend(x):
     dataframe = pd.read_csv("ETL/03 - Dataframe para funciones/UsersRecommend.csv")
     
     # Filtrar el DataFrame por el año dado
-    year_df = dataframe[dataframe['Año'] == x ]
+    year_df = dataframe.loc[dataframe['Año'] == x ]
 
     if year_df.empty:
         return {"error": "No hay datos para el año proporcionado"}
