@@ -11,7 +11,7 @@ app = FastAPI(title='Proyecto Individual',
 def PlayTimeGenre(x: str):
 
     # Cargar el archivo CSV en un DataFrame
-    df = pd.read_csv("../ETL/03 - Dataframe para funciones/PlayTimeGenre.csv")
+    df = pd.read_csv("ETL/03 - Dataframe para funciones/PlayTimeGenre.csv")
 
     # Filtrar el DataFrame para el género específico
     df_genero = df.loc[df['Genero'] == x]
