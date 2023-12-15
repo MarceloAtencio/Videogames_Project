@@ -25,5 +25,6 @@ def PlayTimeGenre(x: str):
     return {"Respuesta" : leyenda}
 
 
-if __name__ == '__main__':
-    app.run(port=5000)
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
