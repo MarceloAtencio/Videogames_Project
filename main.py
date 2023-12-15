@@ -7,16 +7,8 @@ app = FastAPI(title='Proyecto Individual',
             description='Autor:  Atencio Marcelo',
             version='1.0.1')
 
-
-@app.on_event('startup')
-async def startup():
-    
-    # Cargar el archivo CSV en un DataFrame
-    df = pd.read_csv("../03 - Dataframe para funciones/PlayTimeGenre.csv")
-
-def extract_data():
-    return df
-
+# Cargar el archivo CSV en un DataFrame
+df = pd.read_csv("../03 - Dataframe para funciones/PlayTimeGenre.csv")
 
 @app.get("/genero/{x}",tags=["Género"])
 def PlayTimeGenre(x: str):
