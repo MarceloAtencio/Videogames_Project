@@ -50,7 +50,7 @@ def UserForGenre(x: str):
     return result
 
 
-@app.get("/year/{x}",tags=["TOP 3 de juegos más recomendados según el año"])
+@app.get("/year_top3/{x}",tags=["TOP 3 de juegos más recomendados según el año"])
 def UsersRecommend(x: int):
     # Leer el DataFrame desde el archivo CSV
     dataframe = pd.read_csv("ETL/03 - Dataframe para funciones/UsersRecommend.csv")
@@ -72,7 +72,7 @@ def UsersRecommend(x: int):
 
     return result
 
-@app.get("/year/{x}",tags=["TOP 3 de juegos menos recomendados según el año"])
+@app.get("/year_bottom3/{x}",tags=["TOP 3 de juegos menos recomendados según el año"])
 def UsersNotRecommend(x: int):
     # Leer el DataFrame desde el archivo CSV
     dataframe = pd.read_csv("ETL/03 - Dataframe para funciones/UsersNotRecommend.csv")
@@ -94,7 +94,7 @@ def UsersNotRecommend(x: int):
 
     return result
 
-@app.get("/year/{x}",tags=["Cantidad de comentarios positivos, neutros y negativos según el año"])
+@app.get("/year_coment/{x}",tags=["Cantidad de comentarios positivos, neutros y negativos según el año"])
 def sentiment_analysis(x: int):
     # Leer el DataFrame desde el archivo CSV
     dataframe = pd.read_csv("ETL/03 - Dataframe para funciones/sentiment_analysis.csv")
