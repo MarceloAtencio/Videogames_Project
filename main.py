@@ -14,7 +14,7 @@ def PlayTimeGenre(x: str):
     df = pd.read_csv("../PI 1/ETL/03 - Dataframe para funciones/PlayTimeGenre.csv")
 
     # Filtrar el DataFrame para el género específico
-    df_genero = df[df['Genero'] == x]
+    df_genero = df.loc[df['Genero'] == x]
 
     # Encontrar el año con más horas jugadas para ese género
     año_max_playtime = df_genero.loc[df_genero['playtime_forever'].idxmax(), 'Año_Lanzamiento']
