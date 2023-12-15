@@ -7,11 +7,12 @@ app = FastAPI(title='Proyecto Individual',
             description='Autor:  Atencio Marcelo',
             version='1.0.1')
 
-# Cargar el archivo CSV en un DataFrame
-df = pd.read_csv("../ETL/03 - Dataframe para funciones/PlayTimeGenre.csv")
 
 @app.get("/genero/{x}",tags=["Género"])
 def PlayTimeGenre(x: str):
+
+    # Cargar el archivo CSV en un DataFrame
+    df = pd.read_csv("../ETL/03 - Dataframe para funciones/PlayTimeGenre.csv")
 
     # Filtrar el DataFrame para el género específico
     df_genero = df.loc[df['Genero'] == x]
@@ -22,4 +23,4 @@ def PlayTimeGenre(x: str):
     # Crear la leyenda
     leyenda = f"Año de lanzamiento con más horas jugadas para Género {x}: {año_max_playtime}"
 
-    return leyenda
+    return {"Respuesta" : leyenda}
