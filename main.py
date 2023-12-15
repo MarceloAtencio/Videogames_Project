@@ -1,13 +1,13 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import JSONResponse
 import pandas as pd
 import numpy as np
 
 app = FastAPI(title='Proyecto Individual',
-            description='Autor:  Atencio Marcelo',
-            version='1.0.1')
+            description='Autor:  Atencio Marcelo')
 
 
-@app.get("/genero/{x}",tags=["Género"])
+@app.get("/genero/{x}",tags=["Género"], response_class=JSONResponse)
 def PlayTimeGenre(x: str):
 
     # Cargar el archivo CSV en un DataFrame
