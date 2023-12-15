@@ -45,6 +45,6 @@ def UserForGenre(x: str):
     hours_list = [{'Año': int(row['Año_Lanzamiento']), 'Horas': int(row['Cant_hs_juego'])} for index, row in hours_by_year.iterrows()]
 
     # Crear el resultado final en el formato deseado
-    result = {"Usuario con más horas jugadas para Género {}".format(genero): max_hours_user, "Horas jugadas": hours_list}
+    result = {"Usuario con más horas jugadas para Género {}".format(x): max_hours_user, "Horas jugadas": hours_list}
 
     return result
