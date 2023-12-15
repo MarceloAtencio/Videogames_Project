@@ -22,4 +22,4 @@ def PlayTimeGenre(x: str):
     # Crear la leyenda
     leyenda = f"Año de lanzamiento con más horas jugadas para Género {x}: {año_max_playtime}"
 
-    return {"Resultado":leyenda}
+    return leyenda
