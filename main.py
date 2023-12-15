@@ -51,7 +51,7 @@ def UserForGenre(x: str):
 
 
 @app.get("/year/{x}",tags=["TOP 3 de juegos más recomendados según el año"])
-def UsersRecommend(x):
+def UsersRecommend(x: int):
     # Leer el DataFrame desde el archivo CSV
     dataframe = pd.read_csv("ETL/03 - Dataframe para funciones/UsersRecommend.csv")
     
