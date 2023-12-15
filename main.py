@@ -100,7 +100,7 @@ def sentiment_analysis(x: int):
     dataframe = pd.read_csv("ETL/03 - Dataframe para funciones/sentiment_analysis.csv")
 
     # Filtrar el DataFrame por el año dado
-    year_df = dataframe.loc[dataframe['Año_Lanzamiento'] == "x"]
+    year_df = dataframe.loc[dataframe['Año_Lanzamiento'] == x]
 
     if year_df.empty:
         return {"error": "No hay datos para el año proporcionado"}
