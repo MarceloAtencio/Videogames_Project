@@ -23,8 +23,3 @@ def PlayTimeGenre(x: str):
     leyenda = f"Año de lanzamiento con más horas jugadas para Género {x}: {año_max_playtime}"
 
     return {"Respuesta" : leyenda}
-
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
