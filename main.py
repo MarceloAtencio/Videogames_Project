@@ -32,8 +32,15 @@ def PlayTimeGenre(x: str):
 
 @app.get("/genero_user/{x}",tags=["Usuario con más horas jugadas según el género"])
 def UserForGenre(x: str):
+    
+    zip_file = 'PI_1.zip'
+    
+    with zipfile.ZipFile(zip_file, 'r') as zip_ref:
+        zip_ref.extractall('../data/')  # Descomprime los archivos en el directorio '../data/'
+    
+    
     # Leer el DataFrame desde el archivo CSV
-    dataframe = pd.read_csv("ETL/03 - Dataframe para funciones/UserForGenre.csv")
+    dataframe = pd.read_csv("../data/UserForGenre.csv")
 
     # Filtrar el DataFrame por el género dado
     genre_df = dataframe.loc[dataframe['Genero'] == x]
@@ -58,8 +65,14 @@ def UserForGenre(x: str):
 
 @app.get("/year_top3/{x}",tags=["TOP 3 de juegos más recomendados según el año"])
 def UsersRecommend(x: int):
+    
+    zip_file = 'PI_1.zip'
+    
+    with zipfile.ZipFile(zip_file, 'r') as zip_ref:
+        zip_ref.extractall('../data/')  # Descomprime los archivos en el directorio '../data/'
+          
     # Leer el DataFrame desde el archivo CSV
-    dataframe = pd.read_csv("ETL/03 - Dataframe para funciones/UsersRecommend.csv")
+    dataframe = pd.read_csv("../data/UsersRecommend.csv")
     
     # Filtrar el DataFrame por el año dado
     year_df = dataframe.loc[dataframe['Año'] == x ]
@@ -80,8 +93,14 @@ def UsersRecommend(x: int):
 
 @app.get("/year_bottom3/{x}",tags=["TOP 3 de juegos menos recomendados según el año"])
 def UsersNotRecommend(x: int):
+    
+    zip_file = 'PI_1.zip'
+    
+    with zipfile.ZipFile(zip_file, 'r') as zip_ref:
+        zip_ref.extractall('../data/')  # Descomprime los archivos en el directorio '../data/'        
+        
     # Leer el DataFrame desde el archivo CSV
-    dataframe = pd.read_csv("ETL/03 - Dataframe para funciones/UsersNotRecommend.csv")
+    dataframe = pd.read_csv("../data/UsersNotRecommend.csv")
 
     # Filtrar el DataFrame por el año dado
     year_df = dataframe.loc[dataframe['Año'] == x]
@@ -102,8 +121,14 @@ def UsersNotRecommend(x: int):
 
 @app.get("/year_coment/{x}",tags=["Cantidad de comentarios positivos, neutros y negativos según el año"])
 def sentiment_analysis(x: int):
+    
+    zip_file = 'PI_1.zip'
+    
+    with zipfile.ZipFile(zip_file, 'r') as zip_ref:
+        zip_ref.extractall('../data/')  # Descomprime los archivos en el directorio '../data/'           
+        
     # Leer el DataFrame desde el archivo CSV
-    dataframe = pd.read_csv("ETL/03 - Dataframe para funciones/sentiment_analysis.csv")
+    dataframe = pd.read_csv("../data/sentiment_analysis.csv")
 
     # Filtrar el DataFrame por el año dado
     year_df = dataframe.loc[dataframe['Año_Lanzamiento'] == x]
