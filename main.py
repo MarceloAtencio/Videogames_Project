@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 import pandas as pd
 import numpy as np
+import zipfile
 
 app = FastAPI(title='Proyecto Individual',
             description='Autor:  Atencio Marcelo')
@@ -10,8 +11,13 @@ app = FastAPI(title='Proyecto Individual',
 @app.get("/genero/{x}",tags=["Año de lanzamiento con más horas jugadas según el género"])
 def PlayTimeGenre(x: str):
 
+    zip_file = 'PI_1.zip'
+    
+    with zipfile.ZipFile(zip_file, 'r') as zip_ref:
+        zip_ref.extractall('../data/')  # Descomprime los archivos en el directorio '../data/'
+
     # Cargar el archivo CSV en un DataFrame
-    df = pd.read_csv("ETL/03 - Dataframe para funciones/PlayTimeGenre.csv")
+    df = pd.read_csv("../data/PlayTimeGenre.csv")
 
     # Filtrar el DataFrame para el género específico
     df_genero = df.loc[df['Genero'] == x]
