@@ -131,22 +131,19 @@ def sentiment_analysis(x: int):
     dataframe = pd.read_csv("../data/sentiment_analysis.csv")
 
     # Filtrar el DataFrame por el año dado
-    year_df = dataframe[dataframe['Año_Lanzamiento'] == x]
+    df_filtrado = dataframe[dataframe['Año_Lanzamiento'] == x]
+    
+    # Agrupar por análisis de sentimiento y sumar la cantidad de registros
+    resultados = df_filtrado.groupby('sentiment_analysis')['Cant_reg'].sum().to_dict()
 
-    if year_df.empty:
-        return {"error": "No hay datos para el año proporcionado"}
+    # Mapear el valor numérico de sentimiento a su correspondiente etiqueta
+    resultados = {
+        'Negative': resultados.get(0, 0),
+        'Neutral': resultados.get(1, 0),
+        'Positive': resultados.get(2, 0)
+    }
 
-    # Obtener la cantidad de registros para cada categoría de análisis de sentimiento
-    negative_records = year_df[year_df['sentiment_analysis'] == 0]['Cant_reg'].sum()
-    neutral_records = year_df[year_df['sentiment_analysis'] == 1]['Cant_reg'].sum()
-    positive_records = year_df[year_df['sentiment_analysis'] == 2]['Cant_reg'].sum()
-
-    # Crear el resultado en el formato deseado
-    result = {"Negative": negative_records,
-              "Neutral": neutral_records,
-              "Positive": positive_records}
-
-    return result
+    return resultados
 
 
 
