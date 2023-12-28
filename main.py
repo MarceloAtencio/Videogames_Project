@@ -146,7 +146,7 @@ def sentiment_analysis(x: int):
     return resultados
 
 @app.get("/juego_recomm/{x}",tags=["Top 5 juegos recomendados según el ID en cuestión"])
-def recomendacion_juego(x: int):
+async def recomendacion_juego(x: int):
     
     zip_file = 'PI_1.zip'
     
@@ -154,7 +154,7 @@ def recomendacion_juego(x: int):
         zip_ref.extractall('../data/')  # Descomprime los archivos en el directorio '../data/'           
         
     # Leer el DataFrame desde el archivo CSV
-    dataframe = pd.read_csv("../data/recomendacion_juego.csv")
+    dataframe = pd.read_csv("../data/recomendacion_juego.csv", index = True)
 
     ##Obtener la columna correspondiente al juego dado
     columna_juego = dataframe[x]
