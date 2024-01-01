@@ -10,6 +10,15 @@ app = FastAPI(title='Proyecto Individual',
 
 @app.get("/genero/{x}",tags=["Año de lanzamiento con más horas jugadas según el género"])
 def PlayTimeGenre(x: str):
+    
+    """
+    
+        Esta Funcion devuelve el año con más horas jugadas para dicho género \n
+        éstos son algunos de los géneros a investigar \n
+	    'Adventure', 'Action', 'Indie', entre otros \n
+
+     
+    """
 
     zip_file = 'PI_1.zip'
     
@@ -32,7 +41,17 @@ def PlayTimeGenre(x: str):
 
 @app.get("/genero_user/{x}",tags=["Usuario con más horas jugadas según el género"])
 def UserForGenre(x: str):
+
+    """
     
+        Esta Funcion devuelve el el usuario con más horas jugadas para dicho género y \n
+        una lista de la acumulación de horas jugadas por año \n
+        éstos son algunos de los géneros a investigar \n
+	    'Adventure', 'Action', 'Indie', entre otros \n
+
+     
+    """
+
     zip_file = 'PI_1.zip'
     
     with zipfile.ZipFile(zip_file, 'r') as zip_ref:
@@ -65,7 +84,16 @@ def UserForGenre(x: str):
 
 @app.get("/year_top3/{x}",tags=["TOP 3 de juegos más recomendados según el año"])
 def UsersRecommend(x: int):
+
+    """
     
+        Esta Funcion devuelve el TOP 3 de juegos más recomendados por los usuarios para dicho año \n
+        éstos son algunos de los años a investigar \n
+	    '2015', '2011', '2017', entre otros \n
+
+     
+    """
+
     zip_file = 'PI_1.zip'
     
     with zipfile.ZipFile(zip_file, 'r') as zip_ref:
@@ -93,7 +121,16 @@ def UsersRecommend(x: int):
 
 @app.get("/year_bottom3/{x}",tags=["TOP 3 de juegos menos recomendados según el año"])
 def UsersNotRecommend(x: int):
+
+    """
     
+        Esta Funcion devuelve el TOP 3 de juegos menos recomendados por los usuarios para dicho año \n
+        éstos son algunos de los años a investigar \n
+	    '2015', '2011', '2017', entre otros \n
+
+     
+    """
+
     zip_file = 'PI_1.zip'
     
     with zipfile.ZipFile(zip_file, 'r') as zip_ref:
@@ -121,7 +158,17 @@ def UsersNotRecommend(x: int):
 
 @app.get("/year_coment/{x}",tags=["Cantidad de comentarios positivos, neutros y negativos según el año"])
 def sentiment_analysis(x: int):
+
+    """
     
+        Esta Funcion devuelve segun el año de lanzamiento, una lista con la cantidad \n
+        de registros de reseñas de usuarios que se encuentran categorizados segun sentimientos \n
+        éstos son algunos de los años a investigar \n
+	    '2017', '2011', '2015', entre otros \n
+
+     
+    """
+
     zip_file = 'PI_1.zip'
     
     with zipfile.ZipFile(zip_file, 'r') as zip_ref:
@@ -147,7 +194,17 @@ def sentiment_analysis(x: int):
 
 @app.get("/juego_recomm/{x}",tags=["Top 5 juegos recomendados según el ID en cuestión"])
 async def recomendacion_juego(x: str):
+
+    """
     
+        Esta Funcion devuelve según el ID del usuario, una lista con los 5 juegos recomendados \n
+        para dicho usuario \n
+        éstos son algunos de los id a investigar \n
+	    '350330', '466000', '355970', entre otros \n
+
+     
+    """
+
     zip_file = 'PI_1.zip'
     
     with zipfile.ZipFile(zip_file, 'r') as zip_ref:
