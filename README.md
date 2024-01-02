@@ -16,16 +16,42 @@ Vas a sus datos y te das cuenta que la madurez de los mismos es poca (ok, es nul
 
 Debes empezar desde 0, haciendo un trabajo rápido de **`Data Engineer`** y tener un **`MVP`** (_Minimum Viable Product_) para el cierre del proyecto! Tu cabeza va a explotar 🤯, pero al menos sabes cual es, conceptualmente, el camino que debes de seguir :exclamation:. Así que espantas los miedos y pones manos a la obra :muscle:
 
-## **Propuesta de trabajo (requerimientos de aprobación)**
+## Proceso de trabajo
 
-**`Transformaciones`**:  Para este MVP no se te pide transformaciones de datos(` aunque encuentres una motivo para hacerlo `) pero trabajaremos en leer el dataset con el formato correcto. Puedes eliminar las columnas que no necesitan para responder las consultas o preparar los modelos de aprendizaje automático, y de esa manera optimizar el rendimiento de la API y el entrenamiento del modelo.
+A lo largo del proyecto afronte grandes desafios, como entablecer un pensamiento critico y la capacidad de autogestionarme y ser un autodidacta constante, busque, investigue, racionalice, consulte con por varios canales para encontrar la mejor forma de plasmar todo aprendido.-
 
-**`Feature Engineering`**:  En el dataset *user_reviews* se incluyen reseñas de juegos hechos por distintos usuarios. Debes crear la columna ***'sentiment_analysis'*** aplicando análisis de sentimiento con NLP con la siguiente escala: debe tomar el valor '0' si es malo, '1' si es neutral y '2' si es positivo. Esta nueva columna debe reemplazar la de user_reviews.review para facilitar el trabajo de los modelos de machine learning y el análisis de datos. De no ser posible este análisis por estar ausente la reseña escrita, debe tomar el valor de `1`.
+Mi repositorio se encuentra establecido de una manera que al descarlo puedan hacer un seguimiento de los procesos y resultados conseguidos sobre los DataSet Originales.-
 
-**`Desarrollo API`**:   Propones disponibilizar los datos de la empresa usando el framework ***FastAPI***. Las consultas que propones son las siguientes:
+En resumen, este proyecto consegui la autonomía, la organización, la resolución de problemas, la comunicación escrita, el aprendizaje autodirigido y el pensamiento crítico.
 
-<sub> Debes crear las siguientes funciones para los endpoints que se consumirán en la API, recuerden que deben tener un decorador por cada una (@app.get(‘/’)).<sub/>
+## Exploración y limpieza de datos
 
+Comence creando la carpeta Archivos_DATA, ahi guardo los dataset originales de formato .gz en donde de ahi empieza todo la limpieza.-
+
+A continuacion cree la carpeta ETL en donde tambien hice sub-carpetas en donde hice en forma secuencial todo el ETL:
+
+**01 - Extracción de archivos**: En esta carpeta cree un archivo jupyter que extrae los datos contenidos en los datasets originales, y los almacena en dicha carpeta en formato .csv. En una posterior etapa, ya 	procesados y armados los archivos necesarios para las funciones y el ML, éstos archivos se proceden a borrar debido a su tamaño e imposibilidad de subirlo a GitHub.
+
+**02 - Desanidado de datos y limpieza**: En esta carpeta cree un archivo Jupyter en donde procede a desanidar aquellos datos que son necesarios para posterior analisis y limpieza de datos. Los tres archivos son almacenados en formato csv dentro de la misma carpeta.
+
+**03 - Deataframe para funciones**: En esta carpeta cree dos archivos Jupyter. En el archivo "Dataframe_funciones" realice operaciones de cruce de información entre los tres archivos mencionados anteriormente y asi poder obtener datasetr limpios para cada función (menor cantidad de datos para que el archivo sea menos pesado). Cada archivo de su respectiva funcion es almacenado en formato .csv dentro de la misma carpeta y procedo a comprimir los archivos del punto 02. En el segundo archivo "Dataframe_ML" realice operaciones para el modelado de ML en referencia a plantear un modelo de recomendación de juegos en base a un ID de uno en específico, aplicando similitud de cosenos. Por la gran cantidad de juegos registrados (y por ende el tamaño del archivo) procedi a tomar una muestra del 10% de los datos que permita visualizar el funcionamiento del ML en la API (Render cuenta con poca memoria RAM).
+
+Además cuenta con una carpeta "PI_1" el cual cuenta con los 6 archivos datasets correspondiente a cada función, pero en formato comprimido .zip.
+
+Y los siguientes archivos:
+
+**EDA.ipnyb**: el cual contiene el análisis exploratorio de datos, el cual me permitio definir la variable "Genero" como la indicada para el modelo de ML.
+
+**Funciones.ipnyb**: tiene planteado cada una de las funciones, desarrollo y prueba de las mismas.
+
+**main.py**: archivo py el cual tiene configurado todas las funciones para su lectura por render.
+
+**requirements.txt**: archivo útil para realizar el despliegue en render
+
+
+## Funciones
+
+El objetivo del proyecto constaba en el planteo, desarrollo y funcionamiento de 6 funciones:
 
 + def **PlayTimeGenre( *`genero` : str* )**:
     Debe devolver `año` con mas horas jugadas para dicho género.
@@ -53,74 +79,19 @@ Ejemplo de retorno: [{"Puesto 1" : X}, {"Puesto 2" : Y},{"Puesto 3" : Z}]
 
 Ejemplo de retorno: {Negative = 182, Neutral = 120, Positive = 278}
 
-<br/>
 
+**Modelo de aprendizaje automático**: 
 
-> `Importante`<br>
-El MVP _tiene_ que ser una API que pueda ser consumida segun los criterios de [API REST o RESTful](https://rockcontent.com/es/blog/api-rest/) desde cualquier dispositivo conectado a internet. Algunas herramientas como por ejemplo, Streamlit, si bien pueden brindar una interfaz de consulta, no cumplen con las condiciones para ser consideradas una API, sin workarounds.
+El modelo deberá tener una relación ítem-ítem, esto es se toma un item, en base a que tan similar esa ese ítem al resto, se recomiendan similares. Aquí el input es un juego y el output es una lista de juegos recomendados, para ello recomendamos aplicar la *similitud del coseno*. 
 
-
-**`Deployment`**: Conoces sobre [Render](https://render.com/docs/free#free-web-services) y tienes un [tutorial de Render](https://github.com/HX-FNegrete/render-fastapi-tutorial) que te hace la vida mas fácil :smile: . También podrías usar [Railway](https://railway.app/), o cualquier otro servicio que permita que la API pueda ser consumida desde la web.
-
-<br/>
-
-**`Análisis exploratorio de los datos`**: _(Exploratory Data Analysis-EDA)_
-
-Ya los datos están limpios, ahora es tiempo de investigar las relaciones que hay entre las variables del dataset, ver si hay outliers o anomalías (que no tienen que ser errores necesariamente :eyes: ), y ver si hay algún patrón interesante que valga la pena explorar en un análisis posterior. Las nubes de palabras dan una buena idea de cuáles palabras son más frecuentes en los títulos, ¡podría ayudar al sistema de predicción! En esta ocasión vamos a pedirte que no uses librerías para hacer EDA automático ya que queremos que pongas en práctica los conceptos y tareas involucrados en el mismo. Puedes leer un poco más sobre EDA en [este articulo](https://medium.com/swlh/introduction-to-exploratory-data-analysis-eda-d83424e47151)
-
-**`Modelo de aprendizaje automático`**: 
-
-Una vez que toda la data es consumible por la API, está lista para consumir por los departamentos de Analytics y Machine Learning, y nuestro EDA nos permite entender bien los datos a los que tenemos acceso, es hora de entrenar nuestro modelo de machine learning para armar un **sistema de recomendación**. Para ello, te ofrecen dos propuestas de trabajo: En la primera, el modelo deberá tener una relación ítem-ítem, esto es se toma un item, en base a que tan similar esa ese ítem al resto, se recomiendan similares. Aquí el input es un juego y el output es una lista de juegos recomendados, para ello recomendamos aplicar la *similitud del coseno*. 
-La otra propuesta para el sistema de recomendación debe aplicar el filtro user-item, esto es tomar un usuario, se encuentran usuarios similares y se recomiendan ítems que a esos usuarios similares les gustaron. En este caso el input es un usuario y el output es una lista de juegos que se le recomienda a ese usuario, en general se explican como “A usuarios que son similares a tí también les gustó…”. 
-Deben crear al menos **uno** de los dos sistemas de recomendación (Si se atreven a tomar el desafío, para mostrar su capacidad al equipo, ¡pueden hacer ambos!). Tu líder pide que el modelo derive obligatoriamente en un GET/POST en la API símil al siguiente formato:
-
-Si es un sistema de recomendación item-item:
 + def **recomendacion_juego( *`id de producto`* )**:
     Ingresando el id de producto, deberíamos recibir una lista con 5 juegos recomendados similares al ingresado.
 
-Si es un sistema de recomendación user-item:
-+ def **recomendacion_usuario( *`id de usuario`* )**:
-    Ingresando el id de un usuario, deberíamos recibir una lista con 5 juegos recomendados para dicho usuario.
 
+## Links
 
-**`Video`**: Necesitas que al equipo le quede claro que tus herramientas funcionan realmente! Haces un video mostrando el resultado de las consultas propuestas y de tu modelo de ML entrenado! Recuerda presentarte, contar muy brevemente de que trata el proyecto y lo que vas a estar mostrando en el video.
-Para grabarlo, puedes usar la herramienta Zoom, haciendo una videollamada y grabando la pantalla, aunque seguramente buscando, encuentres muchas formas más. 😉
-
-<sub> **Spoiler**: El video NO DEBE durar mas de ***7 minutos*** y DEBE mostrar las consultas requeridas en funcionamiento desde la API y una breve explicación del modelo utilizado para el sistema de recomendación. En caso de que te sobre tiempo luego de grabarlo, puedes mostrar/explicar tu EDA, ETL e incluso cómo desarrollaste la API. <sub/>
-
-<br/>
-
-## **Criterios de evaluación**
-
-**`Código`**: Prolijidad de código, uso de clases y/o funciones, en caso de ser necesario, código comentado. Se tendrá en cuenta el trato de los valores str como `COUNter-strike` / `COUNTER-STRIKE` / `counter-strike`.
-
-**`Repositorio`**: Nombres de archivo adecuados, uso de carpetas para ordenar los archivos, README.md presentando el proyecto y el trabajo realizado. Recuerda que este último corresponde a la guía de tu proyecto, no importa que tan corto/largo sea siempre y cuando tu 'yo' + 1.5 AÑOS pueda entenderlo con facilidad. 
-
-**`Cumplimiento`** de los requerimientos de aprobación indicados en el apartado `Propuesta de trabajo`
-
-NOTA: Recuerde entregar el link de acceso al video. Puede alojarse en YouTube, Drive o cualquier plataforma de almacenamiento. **Verificar que sea de acceso público, recomendamos usar modo incógnito en tu navegador para confirmarlo**.
-
-<br/>
-Aquí te sintetizamos que es lo que consideramos un MVP aprobatorio, y la diferencia con un producto completo.
-
-
-
-<p align="center">
-<img src="https://github.com/HX-PRomero/PI_ML_OPS/raw/main/src/MVP_MLops.PNG"  height=250>
-</p>
-
-
-## **Fuente de datos**
-
-+ [Dataset](https://drive.google.com/drive/folders/1HqBG2-sUkz_R3h1dZU5F2uAzpRn7BSpj): Carpeta con el archivo que requieren ser procesados, tengan en cuenta que hay datos que estan anidados (un diccionario o una lista como valores en la fila).
-+ [Diccionario de datos](https://docs.google.com/spreadsheets/d/1-t9HLzLHIGXvliq56UE_gMaWBVTPfrlTf2D9uAtLGrk/edit?usp=drive_link): Diccionario con algunas descripciones de las columnas disponibles en el dataset.
-<br/>
-
-## **Material de apoyo**
-
-En este mismo repositorio podrás encontrar algunos (hay repositorios con distintos sistemas de recomendación) [links de ayuda](https://github.com/HX-PRomero/PI_ML_OPS/raw/main/Material%20de%20apoyo.md). Recuerda que no son los unicos recursos que puedes utilizar!
-
-
-
++ [API](https://proyecto-individual-1-atencio-marcelo.onrender.com/docs): puede demorar varios minutos en cargar completamente.
+  
++ [Mi video](https://docs.google.com/spreadsheets/d/1-t9HLzLHIGXvliq56UE_gMaWBVTPfrlTf2D9uAtLGrk/edit?usp=drive_link): video explicativo del proyecto y funcion de API.
   
 <br/>
