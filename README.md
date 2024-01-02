@@ -92,6 +92,6 @@ El modelo deberá tener una relación ítem-ítem, esto es se toma un item, en b
 
 + [API](https://proyecto-individual-1-atencio-marcelo.onrender.com/docs): puede demorar varios minutos en cargar completamente.
   
-+ [Mi video](https://docs.google.com/spreadsheets/d/1-t9HLzLHIGXvliq56UE_gMaWBVTPfrlTf2D9uAtLGrk/edit?usp=drive_link): video explicativo del proyecto y funcion de API.
++ [Mi video](https://drive.google.com/file/d/199ssZcoiUeJxeEImkplcgtwTb3aQj0VU/view?usp=sharing): video explicativo del proyecto y funcion de API.
   
 <br/>
